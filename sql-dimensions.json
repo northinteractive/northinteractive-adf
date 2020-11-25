@@ -1,0 +1,17 @@
+{
+    "name": "string",
+    "type": "Microsoft.Sql/servers",
+    "apiVersion": "2019-06-01-preview",
+    "location": "Canada Central",
+    "tags": {},
+    "identity": {
+      "type": "SystemAssigned"
+    },
+    "properties": {
+      "administratorLogin": "sa",
+      "administratorLoginPassword": "T0m3g@n!12",
+      "version": "string",
+      "minimalTlsVersion": "string",
+      "publicNetworkAccess": "string"
+    }
+  }
