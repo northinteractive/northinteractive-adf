@@ -9,7 +9,7 @@
     },
     "properties": {
       "administratorLogin": "sa",
-      "administratorLoginPassword": "T0m3g@n!12",
+      "administratorLoginPassword": "",
       "version": "string",
       "minimalTlsVersion": "string",
       "publicNetworkAccess": "string"
