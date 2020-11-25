@@ -1,0 +1,1 @@
+# Data Factory ARM templates - Perion Analytics
