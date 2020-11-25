@@ -1,17 +1,67 @@
 {
-    "name": "string",
-    "type": "Microsoft.Sql/servers",
-    "apiVersion": "2019-06-01-preview",
-    "location": "Canada Central",
-    "tags": {},
-    "identity": {
-      "type": "SystemAssigned"
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "serverName": {
+        "type": "ni2-adf",
+        "defaultValue": "[uniqueString('sql', resourceGroup().id)]",
+        "metadata": {
+          "description": "The name of the SQL logical server."
+        }
+      },
+      "sqlDBName": {
+        "type": "ni2-adf",
+        "defaultValue": "SampleDB",
+        "metadata": {
+          "description": "The name of the SQL Database."
+        }
+      },
+      "location": {
+        "type": "Canada Central",
+        "defaultValue": "[resourceGroup().location]",
+        "metadata": {
+          "description": "Location for all resources."
+        }
+      },
+      "administratorLogin": {
+        "type": "sa",
+        "metadata": {
+          "description": "The administrator username of the SQL logical server."
+        }
+      },
+      "administratorLoginPassword": {
+        "type": "",
+        "metadata": {
+          "description": "The administrator password of the SQL logical server."
+        }
+      }
     },
-    "properties": {
-      "administratorLogin": "sa",
-      "administratorLoginPassword": "",
-      "version": "string",
-      "minimalTlsVersion": "string",
-      "publicNetworkAccess": "string"
-    }
+    "variables": {},
+    "resources": [
+      {
+        "type": "Microsoft.Sql/servers",
+        "apiVersion": "2020-02-02-preview",
+        "name": "[parameters('serverName')]",
+        "location": "[parameters('location')]",
+        "properties": {
+          "administratorLogin": "[parameters('administratorLogin')]",
+          "administratorLoginPassword": "[parameters('administratorLoginPassword')]"
+        },
+        "resources": [
+          {
+            "type": "databases",
+            "apiVersion": "2020-02-02-preview",
+            "name": "[parameters('sqlDBName')]",
+            "location": "[parameters('location')]",
+            "sku": {
+              "name": "Standard",
+              "tier": "Standard"
+            },
+            "dependsOn": [
+              "[resourceId('Microsoft.Sql/servers', concat(parameters('serverName')))]"
+            ]
+          }
+        ]
+      }
+    ]
   }
